@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div.scrollmenu {
+            background-color: deepskyblue;
+            overflow: auto;
+            white-space: nowrap;
+            width: 1024px
+        }
+
+        div.scrollmenu a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            text-decoration: none;
+        }
+
+        div.scrollmenu a:hover {
+            background-color: royalblue;
+        }
+    </style>
+    <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            text-align:center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {background-color: #4CAF50;} /* Green */
+        .button1:hover {
+            background-color: #e7e7e7;
+            color: black;
+        }
+        .button2 {background-color: #008CBA;} /* Blue */
+        .button2:hover {
+            background-color: #e7e7e7;
+            color: black;
+        }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: powderblue;
+            font-family: cursive;
+        }
+
+        .glow {
+            font-size: 80px;
+            color: #fff;
+            text-align: center;
+            -webkit-animation: glow 1s ease-in-out infinite alternate;
+            -moz-animation: glow 1s ease-in-out infinite alternate;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @-webkit-keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px deepskyblue, 0 0 40px deepskyblue, 0 0 50px deepskyblue, 0 0 60px deepskyblue, 0 0 70px deepskyblue;
+            }
+
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px royalblue, 0 0 40px royalblue, 0 0 50px royalblue, 0 0 60px royalblue, 0 0 70px royalblue, 0 0 80px royalblue;
+            }
+        }
+    </style>
+</head>
+<body style="background-color:powderblue;">
+
+
+<div align="center">
+    <div th:fragment="butoane">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
+            <button sec:authorize="isAuthenticated()" class="btn btn-danger" type="submit">Logout</button>
+            <div sec:authorize="isAuthenticated()" type="button" class="btn btn-info" >
+                Sunteti logat ca: <span sec:authentication = "name"></span>
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <h1 class="glow">VACANTE DE VIS</h1>
+    <br><br>
+
+    <div class="scrollmenu">
+        <a href="/" class="active">Acasa</a>
+        <a href="/utilizatori">Utilizatori</a>
+        <a href="/vacante">Vacante</a>
+        <a href="/atractii">Atractii in vacante</a>
+        <a href="/inregistrari">Inregistrari vacante</a>
+        <a href="/recenzii">Recenzii atractii</a>
+        <a href="/login">Logheaza-te</a>
+        <a href="/utilizatori/new">Creeaza-ti cont</a>
+    </div>
+    <img th:src="@{https://editiadedimineata.ro/wp-content/uploads/2019/03/Holiday-Travel-Tips.png}" style="width:1023px;height:450px;" />
+
+</div>
+<br>
+<p align="center"> <small>&copy; Claudia Ursu & Cristiana Petcu 2020</small> </p>
+
+
+
+</body>
+</html>

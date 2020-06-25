@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 60%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 70%;
+            border: 1px solid deepskyblue;
+            font-size: 18px;
+        }
+
+        #myTable th, #myTable td {
+            text-align: center;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid deepskyblue;
+        }
+
+        #myTable tr.header, #myTable tr:hover {
+            background-color: deepskyblue;
+        }
+    </style>
+
+    <style>
+        h1 {
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px royalblue;
+            font-size: 50px;
+        }
+    </style>
+    <style>
+        .button {
+            border-radius: 4px;
+            background-color: deepskyblue;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 20px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+    <style>
+        .bottom-three {
+            margin-left: 6cm;
+            margin-right: 6cm;
+            margin-top: 0cm;
+        }
+    </style>
+
+
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            transition: background-color .5s;
+
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: deepskyblue;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+    </style>
+
+</head>
+<body style="background-color:powderblue;">
+<div th:replace="fragments/general.html :: butoane"></div>
+<div align="center">
+    <h1>Recenzii atractii</h1>
+    <table>
+        <tr>
+            <th><div id="main">
+                <span style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776; Meniu</span>
+            </div></th>
+            <th><button class="button"><span><a href="/recenzii/new">Adauga o recenzie</a></span></button></th>
+
+        </tr>
+    </table>
+    <br><br>
+    <div id="mySidenav" class="sidenav" align="left">
+        <br><br><br><br><br><br><br><br><br>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/" class="active">Acasa</a>
+        <a href="/utilizatori">Utilizatori</a>
+        <a href="/vacante">Vacante</a>
+        <a href="/atractii">Atractii in vacante</a>
+        <a href="/inregistrari">Inregistrari vacante</a>
+        <a href="/recenzii">Recenzii atractii</a>
+    </div>
+
+
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cauta o nota..." title="Scrie un numar">
+
+
+    <table id="myTable">
+        <tr class="header">
+            <div align="center">
+                <th>Nota</th>
+                <th>ID recenzie</th>
+                <th>ID atractie</th>
+                <th>Titlu</th>
+                <th>Parere</th>
+                <th>Postat de</th>
+                <th>Optiuni</th>
+
+            </div>
+        </tr>
+        <tr th:each="recenzie : ${listRecenzie}">
+            <td th:text="${recenzie.nota}">Nota</td>
+            <td th:text="${recenzie.id_recenzie}">ID recenzie</td>
+            <td th:text="${recenzie.id_atractie}">ID atractie</td>
+            <td th:text="${recenzie.titlu}">Titlu</td>
+            <td th:text="${recenzie.parere}">Parere</td>
+            <td th:text="${recenzie.autor}">Postat de</td>
+
+            <td>
+                <button style='font-size:24px'><a th:href="@{'/recenzii/edit/' + ${recenzie.id_recenzie}}">Edit</a> <i class='fas fa-edit'></i></button>
+                <button style='font-size:24px'><a th:href="@{'/recenzii/delete/' + ${recenzie.id_recenzie}}">Delete</a><i class='fas fa-eraser'></i></button>
+        </tr>
+    </table>
+
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+            document.body.style.backgroundColor = "powderblue";
+        }
+    </script>
+</div>
+<p align="center"> <small>&copy; Claudia Ursu & Cristiana Petcu 2020</small> </p>
+</body>
+</html>

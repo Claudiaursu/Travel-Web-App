@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 260px;
+            height: 260px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-front {
+            background-color: #bbb;
+            color: black;
+        }
+
+        .flip-card-back {
+            background-color: #2980b9;
+            color: white;
+            transform: rotateY(180deg);
+        }
+    </style>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .column {
+            float: left;
+            width: 33.33%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table-row-group;
+            float: inside;
+
+        }
+    </style>
+
+    <style>
+        .bottom-three {
+            margin-left: 6cm;
+            margin-right: 6cm;
+            margin-top: 0cm;
+        }
+    </style>
+    <style>
+        h1 {
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px royalblue;
+            font-size: 50px;
+        }
+    </style>
+
+    <style>
+        .button {
+            border-radius: 4px;
+            background-color: deepskyblue;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 20px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            transition: background-color .5s;
+
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: deepskyblue;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+    </style>
+
+</head>
+
+<body style="background-color:powderblue;">
+<div th:replace="fragments/general.html :: butoane"></div>
+<div align="center">
+
+    <h1>Utilizatori</h1>
+    <table>
+        <tr>
+            <th><div id="main">
+                <span style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776; Meniu</span>
+            </div></th>
+            <th><button class="button"><span><a href="/utilizatori/new">Utilizator nou</a></span></button></th>
+
+        </tr>
+    </table>
+    <div id="mySidenav" class="sidenav" align="left">
+        <br><br><br><br><br><br><br><br><br>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/" class="active">Acasa</a>
+        <a href="/utilizatori">Utilizatori</a>
+        <a href="/vacante">Vacante</a>
+        <a href="/atractii">Atractii in vacante</a>
+        <a href="/inregistrari">Inregistrari vacante</a>
+        <a href="/recenzii">Recenzii atractii</a>
+    </div>
+</div>
+<br/><br/>
+<div align="center">
+    <div class="bottom-three">
+        <div class="row">
+            <tr th:each="utilizator : ${listUtilizator}">
+                <div class="column">
+                    <br> <br>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="avatar.png" alt="Avatar" style="width:260px;height:260px;">
+                            </div>
+                            <div class="flip-card-back">
+
+                                <p>ID: <td th:text="${utilizator.id_utilizator}">ID</td></p>
+                                <p>Nume: <td th:text="${utilizator.nume}">Nume</td></p>
+                                <p>Prenume: <td th:text="${utilizator.prenume}">Prenume</td></p>
+                                <p>Email: <td th:text="${utilizator.email}">Email</td></p>
+                                <p>Telefon: <td th:text="${utilizator.telefon}">Telefon</td></p>
+
+                                <td>
+                                    <a th:href="@{'/utilizatori/edit/' + ${utilizator.id_utilizator}}">Edit</a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a th:href="@{'/utilizatori/delete/' + ${utilizator.id_utilizator}}">Delete</a>
+                                </td>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </tr>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+        document.body.style.backgroundColor = "powderblue";
+    }
+</script>
+</body>
+</html>

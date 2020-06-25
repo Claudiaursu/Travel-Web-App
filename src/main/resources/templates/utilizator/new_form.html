@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>New Specializare</title>
+</head>
+<body>
+
+<style>
+    .button {
+        border-radius: 5px;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 15px 32px;
+        margin: 2px 2px;
+
+    }
+
+    .button1 {background-color: red;  margin-left: -530px; width:105px;} /* Green */
+    .button2 {background-color: #008CBA; width:400px; } /* Blue */
+
+</style>
+
+<form form-method="post" th:action="@{/logout}">
+    <button sec:authorize="isAuthenticated()" class="button button1" type="submit">Logout</button>
+    <button sec:authorize="isAuthenticated()" type="button" class="button button2"> Sunteti logat ca:
+        <span sec:authentication = "name"></span> </button>
+
+</form>
+<br><br>
+
+<style>
+    body {
+        background-color: powderblue;
+        font-family: cursive;
+    }
+    body {font-family: "Times New Roman", Helvetica, sans-serif; width: 30%; margin-left: 540px;  }
+    * {box-sizing: border-box; }
+
+    /* Full-width input fields */
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+    }
+
+    input[type=text]:focus, input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+
+    }
+
+    hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+
+    }
+
+    /* Set a style for all buttons */
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+        opacity: 0.9;
+    }
+
+    button:hover {
+        opacity:1;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+        padding: 14px 20px;
+        background-color: #f44336;
+    }
+
+    /* Float cancel and signup buttons and add an equal width */
+    .cancelbtn, .signupbtn {
+        float: inside;
+        width: 45%;
+        margin-left: 12px;
+    }
+
+    /* Add padding to container elements */
+    .container {
+        padding: 16px;
+        background: deepskyblue;
+    }
+
+    /* Clear floats */
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Change styles for cancel button and signup button on extra small screens */
+    @media screen and (max-width: 300px) {
+        .cancelbtn, .signupbtn {
+            width: 100%;
+        }
+    }
+</style>
+<form action="#" th:action="@{/utilizatori/save}" th:object="${utilizator}"
+      method="post" style="border:1px solid #ccc">
+    <div class="container">
+        <div align="center"> <h1>Creeaza-ti cont</h1> </div>
+        <p>Completati urmatoarele campuri pentru a va crea un cont.</p>
+        <hr>
+        <tr>
+            <td>Id_utilizator</td>
+            <td><input type="text" th:field="*{id_utilizator}" /></td>
+        </tr>
+        <tr>
+            <td>Nume</td>
+            <td><input type="text" th:field="*{nume}" /></td>
+        </tr>
+        <tr>
+            <td>Prenume</td>
+            <td><input type="text" th:field="*{prenume}" /></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" th:field="*{email}" /></td>
+        </tr>
+        <tr>
+            <td>Parola</td>
+            <td><input type="password" th:field="*{parola}" /></td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td><input type="text" th:field="*{telefon}" /></td>
+        </tr>
+        <tr>
+            <button type="button" class="cancelbtn"><a href="/">Anuleaza</a></button>
+            <button type="submit" class="signupbtn">Creare cont</button>
+        </tr>
+    </div>
+</form>
+<p align="center"> <small>&copy; Claudia Ursu & Cristiana Petcu 2020</small> </p>
+</body>
